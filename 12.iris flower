@@ -1,0 +1,59 @@
+rom sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+# Load the Iris dataset
+iris = load_iris()
+X = iris.data  # Features (sepal length, sepal width, petal length, petal width)
+y = iris.target  # Labels (0: setosa, 1: versicolor, 2: virginica)
+
+# Split the data into training and testing sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Initialize the KNN classifier with k=3 (you can experiment with different values of k)
+k = 3
+knn = KNeighborsClassifier(n_neighbors=k)
+
+# Train the classifier on the training data
+knn.fit(X_train, y_train)
+
+# Make predictions on the test data
+y_pred = knn.predict(X_test)
+
+# Evaluate the classifier
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy * 100:.2f}%")
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred, target_names=iris.target_names))
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+ 23 changes: 23 additions & 0 deletions23  
+credit score classfication.py
+Original file line number	Diff line number	Diff line change
+@@ -0,0 +1,23 @@
+def classify_credit_score(score):
+    if score < 300 or score > 850:
+        return "Invalid score. Credit score must be between 300 and 850."
+    elif 300 <= score < 580:
+        return "Poor"
+    elif 580 <= score < 670:
+        return "Fair"
+    elif 670 <= score < 740:
+        return "Good"
+    elif 740 <= score <= 850:
+        return "Excellent"
+    return "Unknown category"  
+
+def main():
+    try:
+        score = int(input("Enter credit score (300-850): "))
+        category = classify_credit_score(score)
+        print("Credit Score Classification:", category)
+    except ValueError:
+        print("Please enter a valid integer for the credit score.")
+
+if __name__ == "__main__":
+    main()
+ Binary file addedBIN +161 KB 
+output 11.png
